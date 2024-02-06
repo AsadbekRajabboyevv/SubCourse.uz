@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form</title>
+    <style>
+    body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: grey;
+}
+
+.login-container {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center; /* Yazi merkezde olsun */
+}
+
+.login-icon {
+    width: 80px; /* Resim boyutu */
+    margin-bottom: 20px; /* Baslik ile resim arasinda bosluk */
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 8px;
+}
+
+input {
+    padding: 8px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    padding: 10px;
+    background: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #0056b3;
+}
+
+
+.register-button {
+      padding: 10px;
+    background: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.register-button:hover {
+ background: #218838;
+ }
+
+
+</style>
+</head>
+<body>
+<div class="login-container">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6_fJYPAGpUZaUqR5L2YgbM0JuSlNpeik2Yg&usqp=CAU" alt="Login Icon" class="login-icon">
+    <form name="f" method="POST" action="/process_login">
+
+        <label for="email"><i class="fas fas fa-user"></i>Email kiriting</label>
+        <input type="email" name="email" id="email">
+        <br/>
+        <label for="password"><i class="fas fa-lock"></i>Parol kiriting</label>
+        <input type="password" name="password" id="password">
+        <br/>
+        <button type="submit"><i class="fas fa-check"></i> Log in</button>
+
+    </form>
+    <div th:if = "${param.error}" style="color:red">
+        Notog'ri kiritildi
+    </div>
+    <h5>OR</h5>
+    <form th:action="@{/auth/register}" method="get">
+        <button type="submit" class="register-button"><i class="fas fa-check"></i> Register</button>
+
+    </form>
+</div>
+</body>
+</html>
