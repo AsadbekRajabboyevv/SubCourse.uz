@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>User Info</title>
+    <style>
+        .red-text {
+    color: red;
+        }
+    </style>
+</head>
+<body>
+<h3>ID</h3>
+<p th:text="${userInfo.getId()}"></p>
+<h3>ISMI</h3>
+<p th:text="${userInfo.getName()}"></p>
+<h3>TUGILGAN SANA</h3>
+<p th:text="${userInfo.getDateOfBirth()}"></p>
+<h3>TIZIMGA QO'SHILGAN SANA</h3>
+<p th:text="${userInfo.getCreatedAt()}"></p>
+<h3>Roli</h3>
+<p th:text="${userInfo.getRole()}" th:classappend="${userInfo.getRole() == 'ADMIN' ? 'red-text': ''}"></p>
+<a th:href="@{/admin/allUsers}">Barcha userlar</a>
+
+<form th:action="@{/admin/allUsers/{id}/delete(id =${userInfo.getId()})}" th:method="Delete">
+<button type="submit" value="Delete">O'chirish</button>
+</form>
+</body>
+</html>

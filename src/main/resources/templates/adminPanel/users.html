@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Users</title>
 </head>
 <body>
-users
+<div th:each="user:${user}">
+    <a th:href="@{/admin/allUsers/{id}(id=${user.getId()})}" th:text="${user.getId() + ',' + user.getName()}">User</a>
+</div>
 </body>
 </html>
