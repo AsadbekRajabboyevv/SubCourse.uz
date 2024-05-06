@@ -3,6 +3,8 @@ package uz.asadbek.AdminPanel.service;
 import jakarta.persistence.Table;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -40,7 +42,7 @@ public class UserDetailsService implements org.springframework.security.core.use
 
 	/*****************************************************************************************************************/
 	//ID bo'yicha 1ta userni bizga olib keladi agar topilmasa UserNotFound exceptionini tashlaydi
-	public User getOneUser(int id) {
+	public User getOneUser(Long id) {
 		return userRepo.findById(id).orElseThrow(UserNotFoundException::new);
 	}
 	/*****************************************************************************************************************/
@@ -54,8 +56,8 @@ public class UserDetailsService implements org.springframework.security.core.use
 	/*****************************************************************************************************************/
 	//Email bo'yicha db ni qidiradi agar topoplmasa "user not found" exception tashlaydi
 	@Override
-	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-		Optional<User> byUsername = userRepo.findByEmail(email);
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		Optional<User> byUsername = userRepo.findByUsername(username);
 		if (byUsername.isEmpty()){
 			throw new UsernameNotFoundException("User not Found");
 		}
@@ -67,12 +69,28 @@ public class UserDetailsService implements org.springframework.security.core.use
 
 	/*****************************************************************************************************************/
 	@Transactional
-	public void getDeleteById(int id){
+	public void getDeleteById(Long id){
 		System.out.println(id+" li user o'chirib tashlandi");
 		userRepo.deleteById(id);
 	}
 	/*****************************************************************************************************************/
 
+	public String getAuthenticatedUsername() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if (authentication == null || !authentication.isAuthenticated()) {
+			return null;
+		}
+
+		Object principal = authentication.getPrincipal();
+		if (principal instanceof UserDetails) {
+			return ((UserDetails) principal).getUsername();
+		} else {
+			return principal.toString();
+		}
+	}
 
 
+	public User getUserByUsername(String username) {
+		return userRepo.findByUsername(username).orElseThrow(UserNotFoundException::new);
+	}
 }

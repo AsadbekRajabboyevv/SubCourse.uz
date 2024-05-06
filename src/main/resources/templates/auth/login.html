@@ -1,9 +1,11 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Form</title>
+    <link rel="icon" href="/ico.png" type="image/x-icon">
+
     <style>
     body {
     font-family: Arial, sans-serif;
@@ -79,8 +81,8 @@ button:hover {
     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6_fJYPAGpUZaUqR5L2YgbM0JuSlNpeik2Yg&usqp=CAU" alt="Login Icon" class="login-icon">
     <form name="f" method="POST" action="/process_login">
 
-        <label for="email"><i class="fas fas fa-user"></i>Email kiriting</label>
-        <input type="email" name="email" id="email">
+        <label for="username"><i class="fas fas fa-user"></i>Username kiriting</label>
+        <input type="text" name="username" id="username">
         <br/>
         <label for="password"><i class="fas fa-lock"></i>Parol kiriting</label>
         <input type="password" name="password" id="password">

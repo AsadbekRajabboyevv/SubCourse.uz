@@ -25,11 +25,11 @@ public class Uservalidator implements Validator {
 	public void validate(Object target, Errors errors) {
 			User user = (User) target;
 			try {
-				userDetailsService.loadUserByUsername(user.getEmail());
+				userDetailsService.loadUserByUsername(user.getUsername());
 			}catch (UsernameNotFoundException e){
 				return;
 			}
-			errors.rejectValue("email", "","Bunday email avval ro'yhatdan o'tgaan");
+			errors.rejectValue("username", "","Bunday username avval ro'yhatdan o'tgaan");
 
 	}
 }

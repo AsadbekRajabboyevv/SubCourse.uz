@@ -20,20 +20,23 @@ public class AdminController {
 	public AdminController(UserDetailsService service) {
 		this.service = service;
 	}
+	@GetMapping()
+	public String adminPage(){
+		return "adminPanel/index";
+	}
 
-	@GetMapping("/allUsers")
+	@GetMapping("/users")
 	public String getAllUsers(Model model){
-		model.addAttribute("user", service.getAllUsers());
+		model.addAttribute("users", service.getAllUsers());
 		return "adminPanel/users";
 	}
 
-	@GetMapping("/allUsers/{id}")
-	public String getOneUser(@PathVariable("id")int id, Model model){
+	@GetMapping("/users/{id}")
+	public String getOneUser(@PathVariable("id")Long id, Model model){
 		String role = service.getOneUser(id).getRole();
 		String substring = role.substring(5);
 		service.getOneUser(id).setRole(substring);
 		model.addAttribute("userInfo", service.getOneUser(id));
-
 		return "adminPanel/userInfo";
 	}
 }

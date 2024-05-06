@@ -8,10 +8,10 @@ import uz.asadbek.AdminPanel.models.User;
 import java.util.Optional;
 
 @Repository
-public interface UserRepo extends JpaRepository<User,Integer> {
+public interface UserRepo extends JpaRepository<User,Long> {
 
-	@Query(value = "select * from users where email = ?1", nativeQuery = true)
-	Optional<User> fingByEmail(String email);
+	@Query(value = "select * from users where username = ?1", nativeQuery = true)
+	Optional<User> fingByUsername(String username);
 
-	Optional<User> findByEmail(String email);
+	Optional<User> findByUsername(String username);
 }

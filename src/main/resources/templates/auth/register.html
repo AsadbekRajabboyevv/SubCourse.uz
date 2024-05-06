@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Registration Form</title>
+    <style>
+        .registration-container {
+            width: 60%;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .registration-icon {
+            width: 50px;
+            height: 50px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        div.error-message {
+            color: red;
+            margin-top: 5px;
+        }
+
+        button[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .button-login {
+            background-color: #008CBA;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+
+        button:hover,
+        .button-login:hover {
+            opacity: 0.8;
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="registration-container">
+    <div class="header">
+        <img src="https://static.thenounproject.com/png/736674-200.png" alt="Register icon " class="registration-icon">
+        <h2>Ro'yhatdan o'tish</h2>
+    </div>
+    <form th:action="@{/auth/register}" th:method="post">
+        <label for="name"><i class="fas fa-user"></i>Ismingiz:</label>
+        <input type="text" th:field="*{employee.name}" id="name" required>
+        <div style="color:red" th:if="${#fields.hasErrors('employee.name')}" th:errors="*{employee.name}">Please enter a valid name</div>
+
+        <label for="surname"><i class="fas fas fa-user"></i> Familyangiz:</label>
+        <input type="text" id="surname" th:field="*{employee.surname}" required>
+        <div style="color:red" th:if="${#fields.hasErrors('employee.surname')}" th:errors="*{employee.surname}">Please enter a valid surname</div>
+
+        <label for="dateOfBirth"><i class="fas fa-birthday-cake"></i> Tug'ulgan sanangiz:</label>
+        <input type="text" id="dateOfBirth" th:field="*{employee.dateOfBirth}" required>
+        <div style="color:red" th:if="${#fields.hasErrors('employee.dateOfBirth')}" th:errors="*{employee.dateOfBirth}">Please enter a valid date of birth</div>
+
+        <label for="phone"><i class="fas fa-phone"></i>Telefon raqamingiz:</label>
+        <input type="text" id="phone" th:field="*{employee.phoneNumber}" required>
+        <div style="color:red" th:if="${#fields.hasErrors('employee.phoneNumber')}" th:errors="*{employee.phoneNumber}">Please enter a valid phone number</div>
+
+        <input type="hidden" id="latitude" th:field="*{employee.coordinates.latitude}" required>
+        <div style="color:red" th:if="${#fields.hasErrors('employee.coordinates.latitude')}" th:errors="*{employee.coordinates.latitude}">Please enter a valid latitude</div>
+
+        <input type="hidden" id="longitude" th:field="*{employee.coordinates.longitude}" required>
+        <div style="color:red" th:if="${#fields.hasErrors('employee.coordinates.longitude')}" th:errors="*{employee.coordinates.longitude}">Please enter a valid longitude</div>
+
+        <label id="specialit" for="speciality"><i class="fas fa-graduation-cap"></i> Yo'nalishingiz:</label>
+        <select id="speciality" th:field="*{employee.speciality}">
+            <option value="IT va dasturlash">IT va dasturlash</option>
+            <option value="Tabiiy fanlar">Tabiiy fanlar</option>
+            <option value="Matematika va fizika">Matematika va fizika</option>
+            <option value="Ona tili va adabiyot">Ona tili va adabiyot</option>
+            <option value="Ingiliz tili">Ingiliz tili</option>
+            <option value="Rus tili">Rus tili</option>
+        </select>
+        <label for="username"><i class="fas fa-user-circle"></i> Foydalanuvchi nomi:</label>
+        <input type="text"   id="username" th:field="*{user.username}" required>
+        <div style="color:red" th:if="${#fields.hasErrors('user.username')}" th:errors="*{user.username}">Please enter a valid email</div>
+
+        <label for="password"><i class="fas fa-lock"></i> Parolingiz:</label>
+        <input type="password" id="password" th:field="*{user.password}" required>
+        <div style="color:red" th:if="${#fields.hasErrors('user.password')}" th:errors="*{user.password}">Please enter a valid password</div>
+
+        <label for="role"><i class="fas fa-user-tag"></i>Siz kimsiz?</label>
+        <select id="role" th:field="*{user.role}" required>
+            <option value="ADMIN" selected>Admin</option>
+            <option value="USER">Student</option>
+            <option value="TEACHER">O'qituvchi</option>
+        </select>
+        <div id="map" style="height: 300px; width: 100%;">
+        </div>
+        <button class="btnregister" type="submit"><i class="fas fa-check"></i> Register</button>
+    </form>
+    <h5>OR</h5>
+    <form th:action="@{/auth/login}" method="get">
+        <button type="submit" class="button-login">Login</button>
+    </form>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAE6Y0QKH_RrAz3R6G6_30ObL9mt9Wsr3k&callback=initMap"></script>
+    <script>
+        var map;
+        var marker;
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 15,
+                center: {lat: 41.5345, lng: 60.6249},
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                disableDefaultUI: true
+            });
+
+            map.addListener('click', function (event) {
+                placeMarker(event.latLng);
+            });
+
+            function placeMarker(location) {
+                if (marker) {
+                    marker.setPosition(location);
+                } else {
+                    marker = new google.maps.Marker({
+                        position: location,
+                        map: map
+                    });
+                }
+
+                document.getElementById("latitude").value = location.lat();
+                document.getElementById("longitude").value = location.lng();
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function(event) {
+            initMap();
+        });
+
+        function getLocation(event) {
+            var timer;
+            var longPress = function() {
+                timer = null;
+                if (marker) {
+                    marker.setPosition(event.latLng);
+                } else {
+                    marker = new google.maps.Marker({
+                        position: event.latLng,
+                        map: map
+                    });
+                }
+                document.getElementById("latitude").value = event.latLng.lat();
+                document.getElementById("longitude").value = event.latLng.lng();
+            };
+
+            timer = setTimeout(longPress, 3000);
+
+            var clearTimer = function() {
+                if (timer) {
+                    clearTimeout(timer);
+                    timer = null;
+                }
+            };
+
+            window.addEventListener('mouseup', clearTimer);
+        }
+
+        // Listen for changes on the role select element
+        document.getElementById('role').addEventListener('change', function() {
+            var selectedRole = this.value;
+            var mapContainer = document.getElementById("map");
+            var specialty = document.getElementById("speciality");
+            var specialt= document.getElementById("specialit");
+
+            if (selectedRole === "TEACHER") {
+                mapContainer.style.display = "block";
+                specialty.style.display = "block";
+                specialt.style.display="block";
+                initMap(); // Open the map field
+            } else {
+                mapContainer.style.display = "none";
+                specialty.style.display = "none";
+                specialt.style.display ="none";
+                document.getElementById("latitude").value = "";
+                document.getElementById("longitude").value = "";
+                if (marker) {
+                    marker.setMap(null);
+                    marker = null;
+                }
+            }
+        });
+    </script>
+</div>
+</body>
+</html>
