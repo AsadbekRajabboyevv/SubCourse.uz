@@ -14,20 +14,22 @@
     align-items: center;
     height: 100vh;
     margin: 0;
-    background-color: grey;
+    background-color: #d6efff;
 }
 
 .login-container {
+    height: 76%;
     background: white;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-align: center; /* Yazi merkezde olsun */
+    text-align: center;
+    width: 20%;
 }
 
 .login-icon {
-    width: 80px; /* Resim boyutu */
-    margin-bottom: 20px; /* Baslik ile resim arasinda bosluk */
+    width: 80px;
+    margin-bottom: 20px;
 }
 
 form {
@@ -81,10 +83,10 @@ button:hover {
     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6_fJYPAGpUZaUqR5L2YgbM0JuSlNpeik2Yg&usqp=CAU" alt="Login Icon" class="login-icon">
     <form name="f" method="POST" action="/process_login">
 
-        <label for="username"><i class="fas fas fa-user"></i>Username kiriting</label>
+        <label for="username"><i class="fas fas fa-user"></i>Login</label>
         <input type="text" name="username" id="username">
         <br/>
-        <label for="password"><i class="fas fa-lock"></i>Parol kiriting</label>
+        <label for="password"><i class="fas fa-lock"></i>Parol</label>
         <input type="password" name="password" id="password">
         <br/>
         <button type="submit"><i class="fas fa-check"></i> Log in</button>

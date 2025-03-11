@@ -5,7 +5,6 @@ const sidebarLockBtn = document.querySelector("#lock-icon");
 
 const toggleLock = () => {
     sidebar.classList.toggle("locked");
-    // If the sidebar is not locked
     if (!sidebar.classList.contains("locked")) {
         sidebar.classList.add("hoverable");
         sidebarLockBtn.classList.replace("bx-lock-alt", "bx-lock-open-alt");

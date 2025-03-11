@@ -24,7 +24,7 @@ public class EmployeeService {
     public Employee getOneEmployee(Long id) throws Exception {
         return employeeRepo.findById(id).orElseThrow(ChangeSetPersister.NotFoundException::new);
     }
-
+    @Transactional
     public void delete(Long id){
         employeeRepo.deleteById(id);
     }
@@ -32,4 +32,5 @@ public class EmployeeService {
     public Employee getEmployeeByName(String findByName) {
         return employeeRepo.findByName(findByName);
     }
+
 }

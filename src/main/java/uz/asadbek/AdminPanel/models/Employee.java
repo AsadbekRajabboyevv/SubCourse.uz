@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
+import uz.asadbek.AdminPanel.domain.EmployeeState;
 
 import java.util.Date;
 @Entity
@@ -26,7 +27,7 @@ public class Employee {
     @Column(name = "phone_number")
     private String phoneNumber;
     @Column(name = "speciality")
-    private String speciality;
+    private EmployeeState speciality;
 
     @Column(name = "date_of_birth")
     @DateTimeFormat(pattern = "dd.MM.yyyy") // Specify the date pattern expected from the form

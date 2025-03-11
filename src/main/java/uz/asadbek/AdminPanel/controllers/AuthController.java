@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import uz.asadbek.AdminPanel.models.Employee;
 import uz.asadbek.AdminPanel.models.User;
+import uz.asadbek.AdminPanel.repository.UserRepo;
 import uz.asadbek.AdminPanel.service.RegisterService;
 import uz.asadbek.AdminPanel.util.EmployeeValidator;
 import uz.asadbek.AdminPanel.util.Uservalidator;
@@ -23,12 +24,14 @@ public class AuthController {
 	private final Uservalidator uservalidator;
 	private final EmployeeValidator employeeValidator;
 	private final RegisterService service;
+	private final UserRepo userRepo;
 	@Autowired
-	public AuthController(Uservalidator uservalidator, EmployeeValidator employeeValidator, RegisterService service) {
+	public AuthController(Uservalidator uservalidator, EmployeeValidator employeeValidator, RegisterService service, UserRepo userRepo) {
 		this.uservalidator = uservalidator;
         this.employeeValidator = employeeValidator;
         this.service = service;
-	}
+        this.userRepo = userRepo;
+    }
 
 	@GetMapping("/login")
 	public String loginPage(){
@@ -49,8 +52,6 @@ public class AuthController {
 		user.setCreatedAt(LocalDateTime.now());
 		String prefixedRole = "ROLE_" + user.getRole();
 		user.setRole(prefixedRole);
-
-		// Save the user
 		service.registerUser(user,employee);
 		return "redirect:/auth/login";
 	}

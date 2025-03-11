@@ -36,44 +36,9 @@
                 </li>
 
             </ul>
-
             <ul class="menu_item">
-                <div class="menu_title flex">
-                    <span class="title">Editor</span>
-                    <span class="line"></span>
-                </div>
-                <li class="item">
-                    <a href="#" class="link flex">
-                        <i class="bx bxs-magic-wand"></i>
-                        <span>Magic Build</span>
-                    </a>
-                </li>
-                <li class="item">
-                    <a href="#" class="link flex">
-                        <i class="bx bx-folder"></i>
-                        <span>New Projects</span>
-                    </a>
-                </li>
-                <li class="item">
-                    <a href="#" class="link flex">
-                        <i class="bx bx-cloud-upload"></i>
-                        <span>Upload New</span>
-                    </a>
-                </li>
-            </ul>
 
-            <ul class="menu_item">
-                <div class="menu_title flex">
-                    <span class="title">Setting</span>
-                    <span class="line"></span>
-                </div>
-                <li class="item">
-                    <a href="#" class="link flex">
-                        <i class="bx bx-flag"></i>
-                        <span>Changa address</span>
-                    </a>
-                </li>
-                <li class="item">
+                <li class="item" th:if="${userRole == 'ROLE_ADMIN'}" >
                     <a th:href="@{/admin}" class="link flex">
                         <i class="bx bx-award"></i>
                         <span>Admin Panel</span>
@@ -93,7 +58,7 @@
         <img src="/ico.png" alt="logo_img" />
     </span>
             <div class="data_text">
-                <span class="email"><p class="email" th:text="${username}">Default Email</p></span>
+                <span class="email"><p class="email" th:text="${userFullName}">Default Email</p></span>
             </div>
         </div>
 
@@ -101,12 +66,12 @@
 </nav>
 <nav class="navbar flex">
     <i class="bx bx-menu" id="sidebar-open"></i>
-    <input type="text" placeholder="Search..." class="search_box" />
     <span class="nav_image">
         <img src="/ico.png" alt="logo_img" />
       </span>
 </nav>
 <script th:src="@{/js/app.js}"></script>
+
 <script src="/static/js/app.js"></script>
 
 </body>

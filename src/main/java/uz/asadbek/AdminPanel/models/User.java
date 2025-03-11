@@ -33,8 +33,6 @@ public class User {
 	private String username;
 	@Column(name = "password")
 	private String password;
-
-
 	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
 	@JoinColumn(name = "employee_id", referencedColumnName = "id")
 	private Employee employee;

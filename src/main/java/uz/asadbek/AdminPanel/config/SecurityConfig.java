@@ -36,6 +36,7 @@ public class SecurityConfig {
 		@Bean
 		public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			http
+
 					.csrf(AbstractHttpConfigurer::disable)
 					.authorizeHttpRequests(configurer ->
 							configurer
@@ -46,21 +47,24 @@ public class SecurityConfig {
 									.permitAll()
 									.anyRequest().hasAnyRole("ADMIN", "USER","TEACHER")
 					)
-					.formLogin(form ->
-							form
+						.formLogin(form ->
+								form
 
-									.loginPage("/auth/login")
-									.usernameParameter("username")
-									.passwordParameter("password")
-									.loginProcessingUrl("/process_login")
-									.defaultSuccessUrl("/", true)
-									.failureUrl("/auth/login?error")
-									.permitAll()
+										.loginPage("/auth/login")
+										.usernameParameter("username")
+										.passwordParameter("password")
+										.loginProcessingUrl("/process_login")
+										.defaultSuccessUrl("/", true)
+										.failureUrl("/auth/login?error")
+										.permitAll()
 					)
 					.logout(logout ->
 							logout
 									.logoutUrl("/logout")
-									.logoutSuccessUrl("/auth/login"));
+									.logoutSuccessUrl("/auth/login"))
+					.exceptionHandling(httpSecurityExceptionHandlingConfigurer -> {
+						httpSecurityExceptionHandlingConfigurer.accessDeniedPage("/error");
+					});
 			return http.build();
 		}
 

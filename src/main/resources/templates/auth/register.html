@@ -107,13 +107,10 @@
 
         <label id="specialit" for="speciality"><i class="fas fa-graduation-cap"></i> Yo'nalishingiz:</label>
         <select id="speciality" th:field="*{employee.speciality}">
-            <option value="IT va dasturlash">IT va dasturlash</option>
-            <option value="Tabiiy fanlar">Tabiiy fanlar</option>
-            <option value="Matematika va fizika">Matematika va fizika</option>
-            <option value="Ona tili va adabiyot">Ona tili va adabiyot</option>
-            <option value="Ingiliz tili">Ingiliz tili</option>
-            <option value="Rus tili">Rus tili</option>
+            <option th:each="state : ${T(uz.asadbek.AdminPanel.domain.EmployeeState).values()}"
+                    th:value="${state}" th:text="${state.displayName}"></option>
         </select>
+
         <label for="username"><i class="fas fa-user-circle"></i> Foydalanuvchi nomi:</label>
         <input type="text"   id="username" th:field="*{user.username}" required>
         <div style="color:red" th:if="${#fields.hasErrors('user.username')}" th:errors="*{user.username}">Please enter a valid email</div>
